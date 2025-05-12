@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom"
-import { useCart } from "./CartContext"
+import { useCartStore } from "./cartStore"
 import "./ShoppingCart.css"
 
 function ShoppingCart() {
-  const { cartItems, removeFromCart, updateQuantity, getTotalPrice } = useCart()
+
+  const { items: cartItems, removeItem, increaseQuantity, decreaseQuantity, getCartTotal } = useCartStore()
+
+  const cartTotal = getCartTotal()
 
   if (cartItems.length === 0) {
     return (
@@ -37,16 +40,14 @@ function ShoppingCart() {
 
               <div className="actions">
                 <div className="quantity">
-                  <button onClick={() => updateQuantity(item.id, item.quantity - 1)} disabled={item.quantity <= 1}>
-                    -
-                  </button>
+                  <button onClick={() =>decreaseQuantity(item.id)}>-</button>
                   <span>{item.quantity}</span>
-                  <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
+                  <button onClick={() =>increaseQuantity(item.id)}>+</button>
                 </div>
 
-                <p className="total">Suma: {(item.price * item.quantity).toFixed(2)} zł</p>
+                <p className="total">Suma: {(item.price*item.quantity).toFixed(2)} zł</p>
 
-                <button className="remove" onClick={() => removeFromCart(item.id)}>
+                <button className="remove" onClick={() => removeItem(item.id)}>
                   Usuń
                 </button>
               </div>
@@ -58,7 +59,7 @@ function ShoppingCart() {
           <h2>Podsumowanie</h2>
           <div className="row">
             <span>Suma produktów:</span>
-            <span>{getTotalPrice().toFixed(2)} zł</span>
+            <span>{cartTotal.toFixed(2)} zł</span>
           </div>
           <div className="row">
             <span>Koszt dostawy:</span>
@@ -66,7 +67,7 @@ function ShoppingCart() {
           </div>
           <div className="total-row">
             <span>Razem:</span>
-            <span>{getTotalPrice().toFixed(2)} zł</span>
+            <span>{cartTotal.toFixed(2)} zł</span>
           </div>
 
           <button className="checkout">Przejdź do kasy</button>

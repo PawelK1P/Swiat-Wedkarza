@@ -37,7 +37,9 @@ function Navbar() {
       <nav className="user-nav">
           <a href="#">Pomoc</a>
           <a href="#">Kontakt </a>
-          <a href="#">Koszyk </a>
+          <Link to="/ShoppingCart">
+            Koszyk
+          </Link>
 
 
           {/* Konto z rozwijanym menu */}
