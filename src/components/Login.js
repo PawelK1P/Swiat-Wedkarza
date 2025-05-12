@@ -94,7 +94,6 @@ function Login() {
         </div>
         <p>Nie masz konta? Utwórz je</p><div className='login'><Link to="/Registration">Rejestracja</Link></div>
       </div>
-      <Footer />
       
     </>
   );

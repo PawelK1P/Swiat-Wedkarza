@@ -9,10 +9,9 @@ import Registration from "./components/Registration";
 import ProductPage from "./components/ProductPage";
 import Login from "./components/Login";
 import Account from "./components/Account";
-import ShoppingCart from "./components/ShoppingCart"
+import SingleProductPage from './components/SingleProductPage';
 import { app } from './firebase';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { CartProvider } from './components/CartContext';
 
 function App() {
   const [user, setUser ] = useState(null);
@@ -29,10 +28,8 @@ function App() {
   const location = useLocation();
 
   return (
-    <CartProvider>
     <div className="app">
-      {/* Render Navbar only if not on specific routes */}
-      {location.pathname !== "/Login" && location.pathname !== "/Account" && <Navbar />}
+      {location.pathname !=="/Login" && <Navbar user={user} /> }      
       <main>
         <Routes>
           <Route path="/Account" element={<Account user={user} />} />
@@ -40,15 +37,13 @@ function App() {
           <Route path="/" element={<Main />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/ProductPage" element={<ProductPage />} />
-          <Route path="/ShoppingCart" element={<ShoppingCart />} />
+          <Route path="/SingleProductPage" element={<SingleProductPage />} />
         </Routes>
-        {/* Render Categories only if not on specific routes */}
-        {location.pathname !== "/Registration" && location.pathname !== "/registration" && location.pathname !== "/ProductPage" && location.pathname !== "/ShoppingCart" && location.pathname !== "/Login" && location.pathname !== "/Account" && <Categories />}
+        <Categories />
       </main>
-      {/* Render Footer only if not on specific routes */}
-      {location.pathname !== "/ProductPage" && location.pathname !== "/ShoppingCart" && location.pathname !== "/Login" && location.pathname !== "/Account" && <Footer />}
+       
+    <Footer />
     </div>
-    </CartProvider>
   );
 }
 
