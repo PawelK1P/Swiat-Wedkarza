@@ -58,7 +58,7 @@ function Navbar() {
           {/*lista kategorii*/}
           {categories.map((category) => ( 
             <li key={category.name}> {/*osobna kategoria*/}
-              <a href="#">{category.name}</a> {/*załącznik kategorii*/}
+              <a href={`/ProductPage?openedCategory=${encodeURIComponent(category.product)}`}>{category.name}</a> {/*załącznik kategorii*/}
             </li>
           ))}
         </ul>
@@ -67,13 +67,14 @@ function Navbar() {
   )
 }
 {/*Kategorie*/}
+//parametr product musi się nazywać tak samo jak Category w bazie danych
 const categories = [
-  { name: "Odzież"},
-  { name: "Kołowrotki"},
-  { name: "Przynęty"},
-  { name: "Wędki"},
-  { name: "Żyłki"},
-  { name: "Haczyki"},
+  { name: "Odzież", product: "Ubrania"},
+  { name: "Kołowrotki", product: "Kołowrotka"},
+  { name: "Przynęty", product: "Przynęta"},
+  { name: "Wędki", product: "Wędka"},
+  { name: "Żyłki", prodcut: "Żyłka"},
+  { name: "Haczyki", product: "Haczyk"},
 ]
 
 export default Navbar

@@ -6,7 +6,7 @@ function Categories() {
       <h2>Popularne kategorie</h2>
       <div className="category-grid">
         {categories.map((category) => (
-          <a key={category.name} href="#" className="category">
+          <a key={category.name} href={`/ProductPage?openedCategory=${encodeURIComponent(category.product)}`} className="category">
             <img src={fishpic} alt={category.name} width={50} height={50} />
             <span>{category.name}</span>
           </a>
@@ -16,13 +16,14 @@ function Categories() {
   )
 }
 
+//parametr product musi się nazywać tak samo jak Category w bazie danych
 const categories = [
-  { name: "Odzież"},
-  { name: "Kołowrotki"},
-  { name: "Przynęty"},
-  { name: "Wędki"},
-  { name: "Żyłki"},
-  { name: "Haczyki"},
+  { name: "Odzież", product: "Ubrania"},
+  { name: "Kołowrotki", product: "Kołowrotka"},
+  { name: "Przynęty", product: "Przynęta"},
+  { name: "Wędki", product: "Wędka"},
+  { name: "Żyłki", prodcut: "Żyłka"},
+  { name: "Haczyki", product: "Haczyk"},
 ]
 
 export default Categories

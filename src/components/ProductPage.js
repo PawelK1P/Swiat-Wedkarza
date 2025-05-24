@@ -1,18 +1,20 @@
 import "./ProductPage.css"
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
-import { useCartStore } from "./cartStore"
+import { useCartStore } from "./cartStore";
 
  function ProductPage() {
-    
+    const [searchParams] = useSearchParams();
+    const openedCategory = searchParams.get('openedCategory') || "";
     const [products, setProducts] = useState([]);
     const [filteredProducts, setFilteredProducts] = useState([])
     const [selectedBrands, setSelectedBrands] = useState([])
     const [selectedCategories, setSelectedCategories] = useState([])
     const [minPrice, setMinPrice] = useState("")
     const [maxPrice, setMaxPrice] = useState("")
+    const [initialFilterApplied, setInitialFilterApplied] = useState(false);
 
      //pobieranie funkcji addItem ze store'a
   const addItem = useCartStore((state) => state.addItem)
@@ -27,10 +29,20 @@ import { useCartStore } from "./cartStore"
         }));
         setProducts(productList);
         setFilteredProducts(productList);
+        //automatycznie filtruje gdy otwiera się stronę przez kategorie
+        if (openedCategory) {
+            const matched = productList.some(p => p.Category === openedCategory);
+            if (matched) {
+                setSelectedCategories([openedCategory]);
+                setFilteredProducts(productList.filter(p => p.Category === openedCategory));
+            } else {
+            setFilteredProducts(productList);
+            }
         }
-
+        }
         fetchData();
-    }, []);
+    }, [openedCategory]);
+
  //zmiana filtru marek
   const handleBrandChange = (e) => {
     const brand = e.target.value
@@ -90,7 +102,7 @@ import { useCartStore } from "./cartStore"
             <div className="checkbox-filter">
             {categories.map((category) => (
               <label key={category}>
-                <input type="checkbox" value={category} onChange={handleCategoryChange} />
+                <input type="checkbox" value={category} checked={selectedCategories.includes(category)} onChange={handleCategoryChange} />
                 {category}
               </label>
             ))}
