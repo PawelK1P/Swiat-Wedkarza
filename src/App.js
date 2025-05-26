@@ -29,7 +29,8 @@ function App() {
 
   return (
     <div className="app">
-      <Navbar />
+      {/* Render Navbar only if not on specific routes */}
+      {location.pathname !== "/Login" && location.pathname !== "/Account" && <Navbar />}
       <main>
         <Routes>
           <Route path="/Account" element={<Account user={user} />} />
@@ -39,9 +40,11 @@ function App() {
           <Route path="/ProductPage" element={<ProductPage />} />
           <Route path="/ShoppingCart" element={<ShoppingCart />} />
         </Routes>
-        <Categories />
+        {/* Render Categories only if not on specific routes */}
+        {location.pathname !== "/Registration" && location.pathname !== "/registration" && location.pathname !== "/ProductPage" && location.pathname !== "/ShoppingCart" && location.pathname !== "/Login" && location.pathname !== "/Account" && <Categories />}
       </main>
-      <Footer />
+      {/* Render Footer only if not on specific routes */}
+      {location.pathname !== "/ProductPage" && location.pathname !== "/ShoppingCart" && location.pathname !== "/Login" && location.pathname !== "/Account" && <Footer />}
     </div>
   );
 }
