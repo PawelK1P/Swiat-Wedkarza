@@ -3,6 +3,7 @@ import icon from '../assets/ikona.png';
 import { Link } from 'react-router-dom'; // import komponentu Link (służy do obsługi routingu, dzięki któremu można się przenosić między stronami)
 function Navbar() {
   const [showOptions, setShowOptions] = useState(false); // Stan do zarządzania widocznością opcji
+  const [searchName, setSearchName] = useState("");
 
   const handleMouseEnter = () => {
     setShowOptions(true);
@@ -11,7 +12,6 @@ function Navbar() {
   const handleMouseLeave = () => {
     setShowOptions(false);
   };
-
 
   return (
     <header>
@@ -29,8 +29,10 @@ function Navbar() {
         </Link>
       {/*Wyszukiwarka*/}
         <div className="search">
-          <input type="text" placeholder="Wpisz czego szukasz" />
-          <button>Szukaj</button>
+          <input type="text" onChange={(e) => setSearchName(e.target.value)} placeholder="Wpisz czego szukasz" />
+          <Link to={`/ProductPage?searchedItem=${encodeURIComponent(searchName)}`}>
+            <button>Szukaj</button>
+          </Link>
         </div>
 
       {/*Nawigacja podstron*/}

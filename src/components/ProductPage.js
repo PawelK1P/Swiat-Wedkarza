@@ -8,13 +8,13 @@ import { useCartStore } from "./cartStore";
  function ProductPage() {
     const [searchParams] = useSearchParams();
     const openedCategory = searchParams.get('openedCategory') || "";
+    const searchedItem = searchParams.get('searchedItem') || "";
     const [products, setProducts] = useState([]);
     const [filteredProducts, setFilteredProducts] = useState([])
     const [selectedBrands, setSelectedBrands] = useState([])
     const [selectedCategories, setSelectedCategories] = useState([])
     const [minPrice, setMinPrice] = useState("")
     const [maxPrice, setMaxPrice] = useState("")
-    const [initialFilterApplied, setInitialFilterApplied] = useState(false);
 
      //pobieranie funkcji addItem ze store'a
   const addItem = useCartStore((state) => state.addItem)
@@ -31,17 +31,16 @@ import { useCartStore } from "./cartStore";
         setFilteredProducts(productList);
         //automatycznie filtruje gdy otwiera się stronę przez kategorie
         if (openedCategory) {
-            const matched = productList.some(p => p.Category === openedCategory);
-            if (matched) {
-                setSelectedCategories([openedCategory]);
-                setFilteredProducts(productList.filter(p => p.Category === openedCategory));
-            } else {
-            setFilteredProducts(productList);
-            }
+            setSelectedCategories([openedCategory]);
+            setFilteredProducts(productList.filter(p => p.Category === openedCategory));
+        }
+        //automatycznie filtruje gdy otwiera się stronę przez wyszukiwarkę
+        if (searchedItem) {
+            setFilteredProducts(productList.filter(p => p.Name.toLowerCase() === searchedItem.toLowerCase()));
         }
         }
         fetchData();
-    }, [openedCategory]);
+    }, [openedCategory, searchedItem]);
 
  //zmiana filtru marek
   const handleBrandChange = (e) => {
