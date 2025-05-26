@@ -17,8 +17,8 @@ function Footer() {
           <h3>Kategorie</h3>
           <ul>
             {categories.map((category) => (
-              <li key={category}>
-                <a href="#">{category}</a>
+              <li key={category.name}>
+                <a href={`/ProductPage?openedCategory=${encodeURIComponent(category.product)}`}>{category.name}</a>
               </li>
             ))}
           </ul>
@@ -49,7 +49,15 @@ function Footer() {
   )
 }
 
-const categories=["Odzież","Kołowrotki","Przynęty","Wędki","Żyłki","Haczyki"]
+//parametr product musi się nazywać tak samo jak Category w bazie danych
+const categories = [
+  { name: "Odzież", product: "Ubrania"},
+  { name: "Kołowrotki", product: "Kołowrotka"},
+  { name: "Przynęty", product: "Przynęta"},
+  { name: "Wędki", product: "Wędka"},
+  { name: "Żyłki", prodcut: "Żyłka"},
+  { name: "Haczyki", product: "Haczyk"},
+]
 
 const helpLinks=["Dostawa i płatność","Zwroty i reklamacje","Regulamin","Polityka prywatności","FAQ"]
 
