@@ -28,6 +28,7 @@ function App() {
   const location = useLocation();
 
   return (
+    <CartProvider>
     <div className="app">
       {/* Render Navbar only if not on specific routes */}
       {location.pathname !== "/Login" && location.pathname !== "/Account" && <Navbar />}
@@ -46,6 +47,7 @@ function App() {
       {/* Render Footer only if not on specific routes */}
       {location.pathname !== "/ProductPage" && location.pathname !== "/ShoppingCart" && location.pathname !== "/Login" && location.pathname !== "/Account" && <Footer />}
     </div>
+</CartProvider>
   );
 }
 
