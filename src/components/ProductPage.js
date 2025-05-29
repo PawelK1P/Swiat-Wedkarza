@@ -3,21 +3,16 @@ import { Link, useSearchParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
-import { useCartStore } from "./cartStore";
+import { useCart } from "./CartContext"
 
  function ProductPage() {
     const [searchParams] = useSearchParams();
     const openedCategory = searchParams.get('openedCategory') || "";
     const searchedItem = searchParams.get('searchedItem') || "";
-    const [products, setProducts] = useState([]);
-    const [filteredProducts, setFilteredProducts] = useState([])
-    const [selectedBrands, setSelectedBrands] = useState([])
-    const [selectedCategories, setSelectedCategories] = useState([])
-    const [minPrice, setMinPrice] = useState("")
-    const [maxPrice, setMaxPrice] = useState("")
 
-     //pobieranie funkcji addItem ze store'a
-  const addItem = useCartStore((state) => state.addItem)
+    const [products, setProducts] = useState([]);
+
+
 
     //pobranie produktów z bazy
     useEffect(() => {
@@ -41,6 +36,12 @@ import { useCartStore } from "./cartStore";
         }
         fetchData();
     }, [openedCategory, searchedItem]);
+
+    const [filteredProducts, setFilteredProducts] = useState([])
+    const [selectedBrands, setSelectedBrands] = useState([])
+    const [selectedCategories, setSelectedCategories] = useState([])
+    const [minPrice, setMinPrice] = useState("")
+    const [maxPrice, setMaxPrice] = useState("")
 
  //zmiana filtru marek
   const handleBrandChange = (e) => {
@@ -86,9 +87,7 @@ import { useCartStore } from "./cartStore";
   const brands = [...new Set(products.map((product) => product.Brand))]
   const categories = [...new Set(products.map((product) => product.Category))]
 
-  const handleAddToCart = (product) => {
-    addItem(product)
-  }
+   const { addToCart } = useCart()
 
     return (
         <div className="product">
@@ -153,7 +152,7 @@ import { useCartStore } from "./cartStore";
                     <div className="product-price">{product.price.toFixed(2)} zł</div>
                 </div>
                 <div className="Cart">
-                    <button className="button" onClick={() => handleAddToCart(product)}>Dodaj do koszyka</button>
+                    <button className="button" onClick={() => addToCart(product)}>Dodaj do koszyka</button>
                 </div>
 
                 </div>

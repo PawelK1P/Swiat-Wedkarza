@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import { useCartStore } from "./cartStore";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import "./ShoppingCart.css";
+import { useCart } from "./CartContext"
 
 function ShoppingCart() {
-  const { items: cartItems, removeItem, increaseQuantity, decreaseQuantity, getCartTotal } = useCartStore();
-  const cartTotal = getCartTotal();
+
+const { cartItems, removeFromCart, increaseQuantity, decreaseQuantity, getTotalPrice } = useCart()
 
   if (cartItems.length === 0) {
     return (
@@ -30,7 +30,7 @@ function ShoppingCart() {
       purchase_units: [
         {
           amount: {
-            value: cartTotal.toFixed(2), 
+            value: getTotalPrice().toFixed(2), 
             currency_code: "PLN",
           },
         },
@@ -41,6 +41,10 @@ function ShoppingCart() {
   const onApprove = (data, actions) => {
     return actions.order.capture().then((details) => {
       const name = details.payer.name.given_name;
+
+
+
+      
     });
   };
 
@@ -76,7 +80,7 @@ function ShoppingCart() {
 
                 <p className="total">Suma: {(item.price * item.quantity).toFixed(2)} zł</p>
 
-                <button className="remove" onClick={() => removeItem(item.id)}>
+                <button className="remove" onClick={() => removeFromCart(item.id)}>
                   Usuń
                 </button>
               </div>
@@ -88,18 +92,17 @@ function ShoppingCart() {
           <h2>Podsumowanie</h2>
           <div className="row">
             <span>Suma produktów:</span>
-            <span>{cartTotal.toFixed(2)} zł</span>
+            <span>{getTotalPrice().toFixed(2)} zł</span>
           </div>
           <div className="row">
             <span>Koszt dostawy:</span>
-            <span>0.00 zł</span>
+            <span>Darmowa</span>
           </div>
           <div className="total-row">
             <span>Razem:</span>
-            <span>{cartTotal.toFixed(2)} zł</span>
+            <span>{getTotalPrice().toFixed(2)} zł</span>
           </div>
 
-          <div className="paypal-button-container">
             <PayPalScriptProvider options={initialOptions}>
               <PayPalButtons
                 createOrder={createOrder}
@@ -114,7 +117,6 @@ function ShoppingCart() {
                 }}
               />
             </PayPalScriptProvider>
-          </div>
 
           <Link to="/ProductPage">
             <button className="continue">Kontynuuj zakupy</button>
