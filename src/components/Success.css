@@ -1,0 +1,18 @@
+.success{
+    text-align: center;
+    font-size: 28px;
+    padding: 5%;
+    display: flex;
+    flex-direction: column;
+}
+  .back-main{
+    color: white;
+    background-color: #0078cc;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+    border: 1px solid ;
+    width: 15%;
+  }
+  .back-main:hover{
+    background-color: #0069b4;
+  }

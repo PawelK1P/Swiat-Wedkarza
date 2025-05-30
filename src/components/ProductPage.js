@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useCart } from "./CartContext"
+import fishpic from '../assets/placeholder.png';
 
  function ProductPage() {
     const [searchParams] = useSearchParams();
@@ -143,7 +144,7 @@ import { useCart } from "./CartContext"
                 
                 <div className="product-card" key={product.id}>
                 <div className="product-image">
-                    <img src={product.image} alt={product.Name} />
+                    <img src={fishpic} alt={product.Name} />
                 </div>
 
                 <div className="product-info">

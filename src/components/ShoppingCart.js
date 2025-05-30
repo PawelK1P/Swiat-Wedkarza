@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import "./ShoppingCart.css";
 import { useCart } from "./CartContext"
+import fishpic from '../assets/placeholder.png';
 
 function ShoppingCart() {
-
+  const navigate = useNavigate();
 const { cartItems, removeFromCart, increaseQuantity, decreaseQuantity, getTotalPrice } = useCart()
 
   if (cartItems.length === 0) {
@@ -38,13 +39,10 @@ const { cartItems, removeFromCart, increaseQuantity, decreaseQuantity, getTotalP
     });
   };
 
+
   const onApprove = (data, actions) => {
     return actions.order.capture().then((details) => {
-      const name = details.payer.name.given_name;
-
-
-
-      
+        navigate("/Success")      
     });
   };
 
@@ -52,6 +50,8 @@ const { cartItems, removeFromCart, increaseQuantity, decreaseQuantity, getTotalP
     console.error("PayPal error", err);
     alert("Wystąpił błąd podczas przetwarzania płatności. Spróbuj ponownie.");
   };
+
+
 
   return (
     <div className="cart">
@@ -62,7 +62,7 @@ const { cartItems, removeFromCart, increaseQuantity, decreaseQuantity, getTotalP
           {cartItems.map((item) => (
             <div className="item" key={item.id}>
               <div className="image">
-                <img src={item.image} alt={item.Name} />
+                <img src={fishpic} alt={item.Name} />
               </div>
 
               <div className="details">
@@ -108,13 +108,6 @@ const { cartItems, removeFromCart, increaseQuantity, decreaseQuantity, getTotalP
                 createOrder={createOrder}
                 onApprove={onApprove}
                 onError={onError}
-                style={{
-                  layout: "vertical",
-                  color: "gold",
-                  shape: "rect",
-                  label: "paypal",
-                  height: 48,
-                }}
               />
             </PayPalScriptProvider>
 
