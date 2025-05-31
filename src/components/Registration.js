@@ -1,52 +1,51 @@
-import React, { useState } from 'react'; //useState zarządza komponentem
+import React, { useState } from 'react';
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import "../styles.css";
 import { Link } from 'react-router-dom';
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
-import "../firebase.js";
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { app } from '../firebase';
 import { useNavigate } from "react-router";
 
 function Registration() {
-  // zapis formularza w komponencie
-  const [formData, setFormData] = useState({ // formData - zapisuje dane, setFormData - aktualizuje formData, useState - zapisuje początkowe wartości
+  const [formData, setFormData] = useState({
     email: "",
     password: "",
     role: "",
     error: ""
   });
 
-  // autoryzacja domeny
   const auth = getAuth(app);
-  const navigate = useNavigate(); // służy do nawigacji po rejestracji
+  const db = getFirestore(app);
+  const navigate = useNavigate();
 
-  // Obsługa zmiany wartości w formularzu:
-  const handleChange = (e) => { 
-    const { name, value } = e.target; 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
     setFormData(prevState => ({
       ...prevState,
       [name]: value,
       error: ""
-    })); 
+    }));
   };
 
-  // Obsługa wysyłania formularza: 
-  const handleSubmit = async (event) => { 
-    event.preventDefault(); //zapobiega przeładowaniu strony po wysłaniu formularza
-    setFormData(prevState => ({
-      ...prevState,
-    }));
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-    // próba stworzenia konta i dodania jej do firebase
-    try
-    {
-        await createUserWithEmailAndPassword(auth, formData.email, formData.password);
-        alert("Rejestracja zakończona pomyślnie!");
-        navigate("/"); // przekierowanie na stronę główną
-    }
-    catch (error) {
-      console.log(error); // Logowanie błędu w konsoli
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+
+      const collectionName = formData.role === 'pracownik' ? 'Employees' : 'Clients';
+
+     await addDoc(collection(db, collectionName), {
+    email: formData.email,
+    role: formData.role === "pracownik" ? "Pracownik" : "Klient"
+    });
+
+      alert("Rejestracja zakończona pomyślnie!");
+      navigate("/");
+    } catch (error) {
+      console.error(error);
       let errorMessage = 'Wystąpił błąd. Spróbuj ponownie później.';
       switch (error.code) {
         case 'auth/email-already-in-use':
@@ -70,57 +69,62 @@ function Registration() {
       }));
     }
   };
+
   return (
     <>
       <div className="registration">
-      <div className="registration-form">
-        <h1>Rejestracja</h1>
-        <form onSubmit={handleSubmit}>
-          <p>E-mail</p>
-          <input 
-            type="email" className='text'
-            name="email"
-            id="email" 
-            value={formData.email} 
-            onChange={handleChange} 
-            required 
-            placeholder='E-mail' 
-          />
-          <p>Hasło</p>
-          <input 
-            type="password" className='text'
-            name="password"
-            id="password" 
-            value={formData.password} 
-            onChange={handleChange} 
-            required
-            placeholder='Hasło' 
-          />
-          
-          <p>Typ konta</p>
-          <select 
-            name="role" 
-            value={formData.role} 
-            onChange={handleChange}
-          >
-            <option value="client">Klient</option>
-            <option value="employee">Pracownik</option>
-          </select>
-          
-          <br /><br />
-          <input 
-            type="submit"
-            id="submit" 
-            value="Zarejestruj się" 
-          />
-        </form>
-        {formData.error && <p className="error-message">{formData.error}</p>}
+        <div className="registration-form">
+          <h1>Rejestracja</h1>
+          <form onSubmit={handleSubmit}>
+            <p>E-mail</p>
+            <input 
+              type="email"
+              className="text"
+              name="email"
+              id="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              placeholder="E-mail"
+            />
+            <p>Hasło</p>
+            <input 
+              type="password"
+              className="text"
+              name="password"
+              id="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              placeholder="Hasło"
+            />
+            <p>Typ konta</p>
+            <select 
+              name="role" 
+              value={formData.role}
+              onChange={handleChange}
+              required
+            >
+              <option value="klient">Klient</option>
+              <option value="pracownik">Pracownik</option>
+            </select>
+            <br /><br />
+            <input 
+              type="submit"
+              id="submit"
+              value="Zarejestruj się"
+            />
+          </form>
+          {formData.error && <p className="error-message">{formData.error}</p>}
         </div>
 
-        <p>Masz konto? Zaloguj się</p><div className='login'><Link to="/Login">Zaloguj się</Link></div>
+        <p>Masz konto? Zaloguj się</p>
+        <div className="login">
+          <Link to="/Login">Zaloguj się</Link>
+        </div>
       </div>
     </>
   );
-};
+}
 
 export default Registration;

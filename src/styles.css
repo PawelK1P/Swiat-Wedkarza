@@ -7,7 +7,7 @@
 
 /*Sekcja body*/
 body {
-  font-family:"Segoe UI" , sans-serif;
+  font-family: "Segoe UI", sans-serif;
   color: #333;
   line-height: 1.5;
 }
@@ -30,17 +30,18 @@ ul {
   border-radius: 4px;
   font-weight: 500;
   transition: background-color 0.2s;
-  color:white;
+  color: white;
 }
-/*Przyciski/linki już odwiedzone*/
 .prod:hover {
   background-color: #0069b4;
 }
+
 /*sekcja od loga strony do listy kategorii*/
 header {
   background-color: #111;
   color: white;
 }
+
 /*sekcja z logiem sklepu i nawigacje podstron*/
 .top-bar {
   display: flex;
@@ -50,25 +51,30 @@ header {
   max-width: 1200px;
   margin: 0 auto;
 }
+
 /*logo sklepu*/
 .logo {
   display: flex;
   align-items: center;
   gap: 8px;
 }
+
 /*ikona sklepu*/
 .logo span {
   color: #0078cc;
 }
+
 /*nazwa sklepu*/
 .logo h1 {
   font-size: 24px;
 }
+
 /*hasło sklepu*/
 .logo p {
   font-size: 12px;
   color: #aaa;
 }
+
 /*pasek wyszukiwania*/
 .search {
   position: relative;
@@ -76,6 +82,7 @@ header {
   max-width: 500px;
   margin: 0 32px;
 }
+
 /*pole do wpisania w wyszukiwarce*/
 .search input {
   width: 100%;
@@ -85,7 +92,8 @@ header {
   background-color: #222;
   color: white;
 }
-/*przcysik w wyszukiwarce*/
+
+/*przycisk w wyszukiwarce*/
 .search button {
   position: absolute;
   right: 12px;
@@ -97,15 +105,18 @@ header {
   cursor: pointer;
   font-size: 12px;
 }
+
 /*sekcja z podstronami*/
 .user-nav {
   display: flex;
   gap: 24px;
 }
+
 /*kategorie produktów*/
 .categories-nav {
   background-color: #222;
 }
+
 /*lista z kategorii produktów*/
 .categories-nav ul {
   display: flex;
@@ -113,6 +124,7 @@ header {
   margin: 0 auto;
   justify-content: center;
 }
+
 /*załącznik z kategorii produktów*/
 .categories-nav a {
   display: flex;
@@ -120,15 +132,17 @@ header {
   padding: 12px 16px;
   transition: background-color 0.2s;
 }
-/*odwiedzony załącznik z kategorii produktów*/
+
 .categories-nav a:hover {
   background-color: #333;
 }
+
 /*sekcja z placeholderem*/
 .main {
   position: relative;
   height: 500px;
 }
+
 /*grafika placeholder z main*/
 .main-img {
   width: 100%;
@@ -136,6 +150,7 @@ header {
   object-fit: cover;
   filter: brightness(0.75);
 }
+
 /*zawartość maina*/
 .main-content {
   position: absolute;
@@ -148,16 +163,19 @@ header {
   text-align: center;
   padding: 24px;
 }
+
 /*nagłówek maina (Świat Wędkarza)*/
 .main-content h1 {
   font-size: 40px;
   margin-bottom: 16px;
 }
+
 /*paragraf maina (z nami złowisz dużą rybę)*/
 .main-content p {
   font-size: 20px;
   margin-bottom: 24px;
 }
+
 /*lista kategorii poniżej maina*/
 .categories {
   max-width: 1200px;
@@ -165,17 +183,20 @@ header {
   padding: 48px 16px;
   text-align: center;
 }
+
 /*nagłówek 2 z listy kategorii poniżej maina*/
 .categories h2 {
   font-size: 24px;
   margin-bottom: 32px;
 }
+
 /*kategorie bez nagłówka*/
 .category-grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 16px;
 }
+
 /*osobna kategoria*/
 .category {
   background-color: white;
@@ -187,24 +208,28 @@ header {
   flex-direction: column;
   align-items: center;
 }
-/*odwiedzona kategoria*/
+
 .category:hover {
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
 }
+
 /*obrazek kategoria*/
 .category img {
   margin-bottom: 8px;
 }
+
 /*nazwa kategoria*/
 .category span {
   font-weight: 500;
 }
+
 /*stopka (dane kontaktowe itp)*/
 footer {
   background-color: #111;
   color: white;
   padding: 48px 0 24px;
 }
+
 /*zawartość stopki*/
 .footer-content {
   display: grid;
@@ -214,38 +239,44 @@ footer {
   margin: 0 auto;
   padding: 0 16px;
 }
+
 /*nagłówki stopki*/
 .footer-section h3 {
   font-size: 18px;
   margin-bottom: 16px;
 }
+
 /*teksty stopki*/
 .footer-section p,
 .footer-section ul a {
   color: #aaa;
   margin-bottom: 16px;
 }
+
 /*ikony społecznościowe*/
 .social {
   display: flex;
   gap: 16px;
 }
+
 /*teksty ikony społecznościowe*/
 .social a,
 .footer-section ul a {
   transition: color 0.2s;
 }
-/*odwiedzone ikony społecznościowe*/
+
 .social a:hover,
 .footer-section ul a:hover {
   color: white;
 }
+
 /*listy ikon społecznościowych*/
 .footer-section ul {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
+
 /*sekcja z prawami autorskimi*/
 .copyright {
   margin-top: 32px;
@@ -255,16 +286,17 @@ footer {
   color: #777;
   font-size: 14px;
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 16px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 16px;
+  padding-right: 16px;
 }
 
 /*sekcja rejestracji*/
-.registration, .login{
+.registration, .login, .account {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  width: 100%; 
   padding: 40px 5vw;
   background-color: #1f1e1e;
   color: white;
@@ -272,24 +304,25 @@ footer {
   gap: 40px;
   box-sizing: border-box;
 }
-.text{
-  font-size:20px;
+
+.text {
+  font-size: 20px;
   border-radius: 5px;
-  height:40px;
-  width:35%;
+  height: 40px;
+  width: 50%;
 }
-input[type='submit']{
+
+input[type='submit'] {
   background-color: #0078cc;
   padding: 12px 24px;
   border-radius: 4px;
   font-weight: 500;
   transition: background-color 0.2s;
-  color:white;
+  color: white;
   font-size: 40px;
-
 }
 
-.login, .registration{
+.login, .registration, .account {
   flex: 1;
   display: flex;
   align-items: center;
@@ -297,11 +330,12 @@ input[type='submit']{
   height: 100%;
 }
 
-.registration-form, .login-form {
+.registration-form, .login-form, .account-form {
   flex: 2;
   text-align: left;
 }
-.login a, .registration a {
+
+.login a, .registration a, .account a {
   display: block;
   background-color: #0078cc;
   padding: 12px 24px;
@@ -312,11 +346,26 @@ input[type='submit']{
   transition: background-color 0.2s;
 }
 
-.login a:hover, .registration a:hover {
+.login a:hover, .registration a:hover, .account a:hover {
   background-color: #0069b4;
 }
 
-select{
-  font-size:25px;
+select {
+  font-size: 25px;
 }
 
+.button-group {
+  display: flex;
+  flex-direction: column; 
+  gap: 12px;             
+  margin-bottom: 24px;    
+}
+
+.prod.change-password-btn {
+  display: block;         
+  margin-top: 16px;       
+}
+
+input [type="email"], input[type="password"]{
+  width:50%;
+}

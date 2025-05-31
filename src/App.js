@@ -12,6 +12,7 @@ import Account from "./components/Account";
 import ShoppingCart from "./components/ShoppingCart"
 import { app } from './firebase';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { CartProvider } from './components/CartContext';
 
 function App() {
   const [user, setUser ] = useState(null);
@@ -30,8 +31,7 @@ function App() {
   return (
     <CartProvider>
     <div className="app">
-      {/* Render Navbar only if not on specific routes */}
-      {location.pathname !== "/Login" && location.pathname !== "/Account" && <Navbar />}
+      <Navbar />
       <main>
         <Routes>
           <Route path="/Account" element={<Account user={user} />} />
@@ -41,11 +41,9 @@ function App() {
           <Route path="/ProductPage" element={<ProductPage />} />
           <Route path="/ShoppingCart" element={<ShoppingCart />} />
         </Routes>
-        {/* Render Categories only if not on specific routes */}
-        {location.pathname !== "/Registration" && location.pathname !== "/registration" && location.pathname !== "/ProductPage" && location.pathname !== "/ShoppingCart" && location.pathname !== "/Login" && location.pathname !== "/Account" && <Categories />}
+         <Categories />
       </main>
-      {/* Render Footer only if not on specific routes */}
-      {location.pathname !== "/ProductPage" && location.pathname !== "/ShoppingCart" && location.pathname !== "/Login" && location.pathname !== "/Account" && <Footer />}
+      <Footer />
     </div>
 </CartProvider>
   );

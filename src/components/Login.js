@@ -1,8 +1,6 @@
 import React, { useState } from 'react'; //useState zarządza komponentem
 import "../styles.css";
 import { Link } from 'react-router-dom';
-import Navbar from "./Navbar";
-import Footer from "./Footer";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth"; // metoda służąca do logowania
 import { app } from '../firebase';
 import { useNavigate } from "react-router";
@@ -58,7 +56,6 @@ function Login() {
     
   return (
     <>
-    <Navbar />
       <div className="login">
       <div className="login-form">
         <h1>Logowanie</h1>
