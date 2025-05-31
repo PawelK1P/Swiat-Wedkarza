@@ -6,6 +6,7 @@ import { app } from '../firebase';
 import { useNavigate } from "react-router";
 
 function Login() {
+  //zapisanie danych formularza
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -30,9 +31,9 @@ function Login() {
         try {
           await signInWithEmailAndPassword(auth, formData.email, formData.password);
           alert("Zalogowano pomyślnie!");
-          navigate("/"); // przekierowanie na stronę główną
+          navigate("/"); 
+            // obsługa błędów firebase
         } catch (error) {
-          console.log(error); // Logowanie błędu w konsoli
           let errorMessage = 'Wystąpił błąd. Spróbuj ponownie później.';
           switch (error.code) {
             case 'auth/wrong-password':

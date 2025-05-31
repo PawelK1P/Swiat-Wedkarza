@@ -37,7 +37,7 @@ function Navbar() {
 
       {/*Nawigacja podstron*/}
       <nav className="user-nav">
-          <a href="#">Pomoc</a>
+          <Link to="/Products">Zarządzanie katalogiem</Link>
           <a href="#">Kontakt </a>
           <Link to="/ShoppingCart">
             Koszyk

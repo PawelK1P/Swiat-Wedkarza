@@ -7,7 +7,7 @@ import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { app } from '../firebase';
 import { useNavigate } from "react-router";
-
+// zapisanie danych formularza
 function Registration() {
   const [formData, setFormData] = useState({
     email: "",
@@ -20,6 +20,7 @@ function Registration() {
   const db = getFirestore(app);
   const navigate = useNavigate();
 
+  // zmiany w polach formularza
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prevState => ({
@@ -29,6 +30,7 @@ function Registration() {
     }));
   };
 
+  // wysłanie formularza
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -47,6 +49,7 @@ function Registration() {
     } catch (error) {
       console.error(error);
       let errorMessage = 'Wystąpił błąd. Spróbuj ponownie później.';
+      // obsługa błędów firebase
       switch (error.code) {
         case 'auth/email-already-in-use':
           errorMessage = 'Konto z takim adresem email już istnieje.';
@@ -63,6 +66,8 @@ function Registration() {
         default:
           break;
       }
+
+      // aktualizacja stanu, by pokazać komunikat błędu na stronie
       setFormData(prevState => ({
         ...prevState,
         error: errorMessage
