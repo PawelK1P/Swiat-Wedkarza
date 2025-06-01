@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import icon from '../assets/ikona.png';
-import { Link } from 'react-router-dom'; // import komponentu Link (służy do obsługi routingu, dzięki któremu można się przenosić między stronami)
+import { Link, useNavigate } from 'react-router-dom'; // import komponentu Link i useNavigate (służy do obsługi routingu, dzięki któremu można się przenosić między stronami)
 function Navbar() {
-  const [showOptions, setShowOptions] = useState(false); // Stan do zarządzania widocznością opcji
   const [searchName, setSearchName] = useState("");
+  const navigate = useNavigate();
 
-  const handleMouseEnter = () => {
-    setShowOptions(true);
+  const handleEnter = () => {
+    navigate(`/ProductPage?searchedItem=${encodeURIComponent(searchName)}`);
   };
 
-  const handleMouseLeave = () => {
-    setShowOptions(false);
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter')
+      handleEnter();
   };
 
   return (
@@ -29,7 +30,11 @@ function Navbar() {
         </Link>
       {/*Wyszukiwarka*/}
         <div className="search">
-          <input type="text" onChange={(e) => setSearchName(e.target.value)} placeholder="Wpisz czego szukasz" />
+          <input
+            type="text"
+            onChange={(e) => setSearchName(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="Wpisz czego szukasz" />
           <Link to={`/ProductPage?searchedItem=${encodeURIComponent(searchName)}`}>
             <button>Szukaj</button>
           </Link>
@@ -42,16 +47,7 @@ function Navbar() {
           <Link to="/ShoppingCart">
             Koszyk
           </Link>
-
-
-          {/* Konto z rozwijanym menu */}
-          <div 
-            onMouseEnter={handleMouseEnter} 
-            onMouseLeave={handleMouseLeave}
-            style={{ position: 'relative' }} // Umożliwia pozycjonowanie selecta
-          >
-            <Link to="/Account">Konto</Link>
-          </div>
+        <Link to="/Account">Konto</Link>
         </nav>
       </div>
     {/*Nawigacja kategorii*/}

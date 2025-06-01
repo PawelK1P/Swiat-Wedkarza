@@ -149,7 +149,7 @@ function Products() {
         onChange={e => setNewProduct({ ...newProduct, Name: e.target.value })}
       />
       <input
-        type="text"
+        type="number"
         placeholder="Amount"
         value={newProduct.amount}
         onChange={e => setNewProduct({ ...newProduct, amount: e.target.value })}
