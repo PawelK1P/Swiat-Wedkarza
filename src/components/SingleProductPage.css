@@ -11,7 +11,7 @@
   background-color: #fff;
   justify-content: center;
   align-items: flex-start;
-  flex-wrap: wrap; /* na mniejszych ekranach obrazek i info pod sobą */
+  flex-wrap: wrap;
 }
 
 .ProductImage {
@@ -85,16 +85,7 @@
   background-color: #1d3557;
 }
 
-.ExtendedInfo {
-  width: 100%;
-  margin-top: 50px;
-  display: flex;
-  gap: 40px;
-  flex-wrap: wrap;
-}
-
-.ProductDescription,
-.Specification {
+.ProductDescription {
   flex: 1 1 400px;
   background-color: #f9f9f9;
   padding: 25px;
@@ -106,25 +97,3 @@
   min-height: 200px;
 }
 
-/* Responsywność */
-
-@media (max-width: 900px) {
-  .SingleProduct {
-    flex-direction: column;
-    padding: 20px 10px;
-  }
-
-  .ProductImage, .ProductInfo {
-    max-width: 100%;
-    flex: 1 1 100%;
-  }
-
-  .ExtendedInfo {
-    flex-direction: column;
-  }
-
-  .ProductDescription,
-  .Specification {
-    min-height: auto;
-  }
-}

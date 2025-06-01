@@ -7,10 +7,11 @@ import { useCart } from "./CartContext";
 import fishpic from '../assets/placeholder.png';
 
 function ProductPage() {
+  // Pobranie parametrów 
   const [searchParams] = useSearchParams();
   const openedCategory = searchParams.get('openedCategory') || "";
   const searchedItem = searchParams.get('searchedItem') || "";
-
+// Stany 
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectedBrands, setSelectedBrands] = useState([]);
@@ -18,23 +19,25 @@ function ProductPage() {
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
 
-  const { addToCart } = useCart();
+  const { addToCart } = useCart(); // Funkcja dodająca produkt do koszyka
 
-  // pobranie produktów z bazy
+  // Pobranie danych z bazy firebase
   useEffect(() => {
     async function fetchData() {
-      const querySnapshot = await getDocs(collection(db, 'Products'));
+      const querySnapshot = await getDocs(collection(db, 'Products')); // Pobranie wszystkich produktów z Firebase
       const productList = querySnapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data(),
       }));
-      setProducts(productList);
-      setFilteredProducts(productList);
+      setProducts(productList); // Ustawienie produktów
+      setFilteredProducts(productList); // Domyślnie wszystkie produkty widoczne
 
+      // Filtrowanie na podstawie kategorii z URL
       if (openedCategory) {
         setSelectedCategories([openedCategory]);
         setFilteredProducts(productList.filter(p => p.Category === openedCategory));
       }
+      // Filtrowanie na podstawie wyszukiwanej frazy
       if (searchedItem) {
         setFilteredProducts(productList.filter(p => p.Name.toLowerCase() === searchedItem.toLowerCase()));
       }
@@ -42,15 +45,16 @@ function ProductPage() {
     fetchData();
   }, [openedCategory, searchedItem]);
 
+   // Obsługa zmian wyboru marek
   const handleBrandChange = (e) => {
     const brand = e.target.value;
     if (e.target.checked) {
-      setSelectedBrands([...selectedBrands, brand]);
+      setSelectedBrands([...selectedBrands, brand]); // Dodanie marki do listy
     } else {
       setSelectedBrands(selectedBrands.filter((b) => b !== brand));
     }
   };
-
+// Obsługa zmian wyboru kategorii
   const handleCategoryChange = (e) => {
     const category = e.target.value;
     if (e.target.checked) {
@@ -60,12 +64,15 @@ function ProductPage() {
     }
   };
 
+  // Zastosowanie filtrów
   const applyFilters = () => {
     let filtered = [...products];
 
+    // Filtr po marce
     if (selectedBrands.length > 0) {
       filtered = filtered.filter(product => selectedBrands.includes(product.Brand));
     }
+    // Filtr po kategorii
     if (selectedCategories.length > 0) {
       filtered = filtered.filter(product => selectedCategories.includes(product.Category));
     }
@@ -76,9 +83,10 @@ function ProductPage() {
       filtered = filtered.filter(product => product.price <= Number.parseFloat(maxPrice));
     }
 
-    setFilteredProducts(filtered);
+    setFilteredProducts(filtered); // Zaktualizowanie widocznych produktów
   };
 
+  // Unikalne marki i kategorie do wyświetlenia jako filtry
   const brands = [...new Set(products.map(product => product.Brand))];
   const categories = [...new Set(products.map(product => product.Category))];
 
@@ -136,7 +144,6 @@ function ProductPage() {
         <div className="products-grid">
           {filteredProducts.map(product => (
             <div className="product-card" key={product.id}>
-              {/* Link do strony produktu */}
               <Link to={`/SingleProductPage/${product.id}`}>
                 <div className="product-image">
                   <img src={fishpic} alt={product.Name} />
