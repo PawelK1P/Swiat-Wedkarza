@@ -57,7 +57,7 @@ function Account() {
         if (!snapshot.empty) {
           const docId = snapshot.docs[0].id;
           await deleteDoc(doc(db, col, docId));
-          break; // zakładamy, że jest tylko w jednej kolekcji
+          break; 
         }
       }
 

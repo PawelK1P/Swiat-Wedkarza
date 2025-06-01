@@ -13,6 +13,8 @@ import ShoppingCart from "./components/ShoppingCart"
 import { app } from './firebase';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { CartProvider } from './components/CartContext';
+import  Products  from './components/Products';
+import  SingleProductPage  from './components/SingleProductPage';
 
 function App() {
   const [user, setUser ] = useState(null);
@@ -40,6 +42,8 @@ function App() {
           <Route path="/Login" element={<Login />} />
           <Route path="/ProductPage" element={<ProductPage />} />
           <Route path="/ShoppingCart" element={<ShoppingCart />} />
+           <Route path="/Products" element={<Products />} />
+           <Route path="/SingleProductPage/:id" element={<SingleProductPage />} />
         </Routes>
          <Categories />
       </main>

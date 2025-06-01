@@ -18,12 +18,12 @@ function Categories() {
 
 //parametr product musi się nazywać tak samo jak Category w bazie danych
 const categories = [
-  { name: "Odzież", product: "Ubrania"},
-  { name: "Kołowrotki", product: "Kołowrotka"},
-  { name: "Przynęty", product: "Przynęta"},
-  { name: "Wędki", product: "Wędka"},
-  { name: "Żyłki", prodcut: "Żyłka"},
-  { name: "Haczyki", product: "Haczyk"},
+  { name: "Odzież", product: "Odzież"},
+  { name: "Kołowrotki", product: "Kołowrotki"},
+  { name: "Przynęty", product: "Przynęty"},
+  { name: "Wędki", product: "Wędki"},
+  { name: "Żyłki", prodcut: "Żyłki"},
+  { name: "Haczyki", product: "Haczyki"},
 ]
 
 export default Categories

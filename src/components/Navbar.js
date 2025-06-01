@@ -37,8 +37,8 @@ function Navbar() {
 
       {/*Nawigacja podstron*/}
       <nav className="user-nav">
-          <a href="#">Pomoc</a>
-          <a href="#">Kontakt </a>
+          <Link to="/Products">Zarządzanie katalogiem</Link>
+          <Link to="/ProductPage">Lista produktów</Link>
           <Link to="/ShoppingCart">
             Koszyk
           </Link>
@@ -71,12 +71,12 @@ function Navbar() {
 {/*Kategorie*/}
 //parametr product musi się nazywać tak samo jak Category w bazie danych
 const categories = [
-  { name: "Odzież", product: "Ubrania"},
-  { name: "Kołowrotki", product: "Kołowrotka"},
-  { name: "Przynęty", product: "Przynęta"},
-  { name: "Wędki", product: "Wędka"},
-  { name: "Żyłki", prodcut: "Żyłka"},
-  { name: "Haczyki", product: "Haczyk"},
+  { name: "Odzież", product: "Odzież"},
+  { name: "Kołowrotki", product: "Kołowrotki"},
+  { name: "Przynęty", product: "Przynęty"},
+  { name: "Wędki", product: "Wędki"},
+  { name: "Żyłki", product: "Żyłki"},
+  { name: "Haczyki", product: "Haczyki"},
 ]
 
 export default Navbar

@@ -31,6 +31,7 @@ ul {
   font-weight: 500;
   transition: background-color 0.2s;
   color: white;
+  margin: 5px;
 }
 .prod:hover {
   background-color: #0069b4;
@@ -369,3 +370,24 @@ select {
 input [type="email"], input[type="password"]{
   width:50%;
 }
+
+table, th,td{
+  border: 1px solid black;
+  text-align: center;
+}
+
+select{
+  margin:auto;
+  height:40px;
+}
+
+
+.products{
+  padding: 2rem;
+  background-color: #3b3b3b;
+  color:white;
+}
+
+
+
+

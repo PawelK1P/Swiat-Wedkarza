@@ -1,3 +1,130 @@
-.ProductImage{
-    
+/* SingleProductPage.css */
+
+.SingleProduct {
+  width: 100vw; /* pełna szerokość okna */
+  max-width: 100%;
+  padding: 40px 20px;
+  box-sizing: border-box;
+  display: flex;
+  gap: 60px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fff;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap; /* na mniejszych ekranach obrazek i info pod sobą */
+}
+
+.ProductImage {
+  flex: 1 1 400px; /* rośnie, ale minimum 400px */
+  max-width: 600px;
+  position: relative;
+  background-color: #f0f0f0; /* jasny placeholder */
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px; /* minimalna wysokość obrazka */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.ProductImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* obrazek dopasowany proporcjonalnie, bez przycinania */
+  display: block;
+  user-select: none;
+  pointer-events: none;
+}
+
+.ProductInfo {
+  flex: 1 1 400px;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 15px;
+  color: #222;
+}
+
+.ProductBrand {
+  font-size: 1rem;
+  color: #888;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  margin-bottom: 8px;
+}
+
+.ProductName {
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.ProductPrice {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #e63946; /* ładny czerwony */
+  margin-bottom: 20px;
+}
+
+.AddToCart {
+  background-color: #457b9d;
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: fit-content;
+}
+
+.AddToCart:hover {
+  background-color: #1d3557;
+}
+
+.ExtendedInfo {
+  width: 100%;
+  margin-top: 50px;
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.ProductDescription,
+.Specification {
+  flex: 1 1 400px;
+  background-color: #f9f9f9;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.6;
+  min-height: 200px;
+}
+
+/* Responsywność */
+
+@media (max-width: 900px) {
+  .SingleProduct {
+    flex-direction: column;
+    padding: 20px 10px;
+  }
+
+  .ProductImage, .ProductInfo {
+    max-width: 100%;
+    flex: 1 1 100%;
+  }
+
+  .ExtendedInfo {
+    flex-direction: column;
+  }
+
+  .ProductDescription,
+  .Specification {
+    min-height: auto;
+  }
 }
