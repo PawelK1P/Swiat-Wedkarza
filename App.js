@@ -14,7 +14,7 @@ import Success from './components/Success';
 import { app } from './firebase';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { CartProvider } from './components/CartContext';
-import  Products  from './components/Products';Add commentMore actions
+import  Products  from './components/Products';
 import  SingleProductPage  from './components/SingleProductPage';
 
 function App() {
