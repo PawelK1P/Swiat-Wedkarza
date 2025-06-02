@@ -49,10 +49,10 @@ function App() {
           <Route path="/SingleProductPage/:id" element={<SingleProductPage />} />
         </Routes>
         {/* Render Categories only if not on specific routes */}
-        {location.pathname !== "/Registration" && location.pathname !== "/SingleProductPage/:id" && location.pathname !== "/Products" && location.pathname !== "/Success" && location.pathname !== "/registration" && location.pathname !== "/ProductPage" && location.pathname !== "/ShoppingCart" && location.pathname !== "/Login" && location.pathname !== "/Account" && <Categories />}
+        {location.pathname !== "/Registration" && !location.pathname.startsWith("/SingleProductPage") && location.pathname !== "/Products" && location.pathname !== "/Success" && location.pathname !== "/registration" && location.pathname !== "/ProductPage" && location.pathname !== "/ShoppingCart" && location.pathname !== "/Login" && location.pathname !== "/Account" && <Categories />}
       </main>
       {/* Render Footer only if not on specific routes */}
-      {location.pathname !== "/ProductPage" && location.pathname !== "/SingleProductPage/:id" && location.pathname !== "/Products" && location.pathname !== "/Success" &&  location.pathname !== "/ShoppingCart" && location.pathname !== "/Login" && location.pathname !== "/Account" && <Footer />}
+      {location.pathname !== "/ProductPage" && location.pathname !== "/Products" && location.pathname !== "/Success" &&  location.pathname !== "/ShoppingCart" && location.pathname !== "/Login" && location.pathname !== "/Account" && <Footer />}
     </div>
 </CartProvider>
   );
