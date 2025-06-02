@@ -1,4 +1,9 @@
-import fishpic from '../assets/placeholder.png';
+import odziez from '../assets/odziez.jpg';
+import kolowrotek from '../assets/kolowrotek.jpg';
+import przyneta from '../assets/przyneta.jpg';
+import wedka from '../assets/wedka.jpg';
+import zylka from '../assets/zylka.jpg';
+import haczyk from '../assets/haczyk.jpg';
 {/*Sekcja z kategoriami*/}
 function Categories() {
   return (
@@ -7,7 +12,7 @@ function Categories() {
       <div className="category-grid">
         {categories.map((category) => (
           <a key={category.name} href={`/ProductPage?openedCategory=${encodeURIComponent(category.product)}`} className="category">
-            <img src={fishpic} alt={category.name} width={50} height={50} />
+            <img src={category.image} alt={category.name} width={50} height={50} />
             <span>{category.name}</span>
           </a>
         ))}
@@ -18,12 +23,12 @@ function Categories() {
 
 //parametr product musi się nazywać tak samo jak Category w bazie danych
 const categories = [
-  { name: "Odzież", product: "Odzież"},
-  { name: "Kołowrotki", product: "Kołowrotki"},
-  { name: "Przynęty", product: "Przynęty"},
-  { name: "Wędki", product: "Wędki"},
-  { name: "Żyłki", prodcut: "Żyłki"},
-  { name: "Haczyki", product: "Haczyki"},
+  { name: "Odzież", product: "Odzież", image: odziez},
+  { name: "Kołowrotki", product: "Kołowrotki", image: kolowrotek},
+  { name: "Przynęty", product: "Przynęty", image: przyneta},
+  { name: "Wędki", product: "Wędki", image: wedka},
+  { name: "Żyłki", prodcut: "Żyłki", image: zylka},
+  { name: "Haczyki", product: "Haczyki", image: haczyk},
 ]
 
 export default Categories
