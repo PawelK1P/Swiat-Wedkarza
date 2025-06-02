@@ -2,11 +2,32 @@ import { Link, useNavigate } from "react-router-dom";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import "./ShoppingCart.css";
 import { useCart } from "./CartContext"
-import fishpic from '../assets/placeholder.png';
+import { useState } from "react";
+
 
 function ShoppingCart() {
   const navigate = useNavigate();
-const { cartItems, removeFromCart, increaseQuantity, decreaseQuantity, getTotalPrice } = useCart()
+const { cartItems, removeFromCart, increaseQuantity, decreaseQuantity, getTotalPrice, clearCart } = useCart()
+const [formData, setFormData] = useState({
+  address: "",
+  phone: "",
+  postalCode: "",
+  email: "",
+});
+
+const isFormValid = () => {
+  const { address, phone, postalCode, email } = formData;
+  const phoneRegex = /^[0-9]{9}$/;
+  const postalCodeRegex = /^[0-9]{2}-[0-9]{3}$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  return (
+    address.trim() !== "" &&
+    phoneRegex.test(phone) &&
+    postalCodeRegex.test(postalCode) &&
+    emailRegex.test(email)
+  );
+};
 
   if (cartItems.length === 0) {
     return (
@@ -42,7 +63,8 @@ const { cartItems, removeFromCart, increaseQuantity, decreaseQuantity, getTotalP
 
   const onApprove = (data, actions) => {
     return actions.order.capture().then((details) => {
-        navigate("/Success")      
+        navigate("/Success", { state: { purchasedItems: cartItems}})    
+        clearCart()
     });
   };
 
@@ -62,7 +84,7 @@ const { cartItems, removeFromCart, increaseQuantity, decreaseQuantity, getTotalP
           {cartItems.map((item) => (
             <div className="item" key={item.id}>
               <div className="image">
-                <img src={fishpic} alt={item.Name} />
+                <img src={item.imageURL} alt={item.Name} />
               </div>
 
               <div className="details">
@@ -86,7 +108,49 @@ const { cartItems, removeFromCart, increaseQuantity, decreaseQuantity, getTotalP
               </div>
             </div>
           ))}
+          <div className="checkout-form">
+  <h3>Dane do wysyłki</h3>
+
+  <input
+    type="text"
+    name="address"
+    placeholder="Adres"
+    required
+    className="full-width"
+    value={formData.address}
+    onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+  />
+
+  <div className="two-small">
+    <input
+      type="text"
+      name="phone"
+      placeholder="Numer telefonu (9 cyfr)"
+      required
+      value={formData.phone}
+      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+    />
+    <input
+      type="text"
+      name="postalCode"
+      placeholder="Kod pocztowy (np. 00-000)"
+      required
+      value={formData.postalCode}
+      onChange={(e) => setFormData({ ...formData, postalCode: e.target.value })}
+    />
+  </div>
+  <input
+    type="email"
+    name="email"
+    placeholder="Adres e-mail"
+    required
+    className="full-width"
+    value={formData.email}
+    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+  />
+  </div>
         </div>
+      
 
         <div className="summary">
           <h2>Podsumowanie</h2>
@@ -103,13 +167,21 @@ const { cartItems, removeFromCart, increaseQuantity, decreaseQuantity, getTotalP
             <span>{getTotalPrice().toFixed(2)} zł</span>
           </div>
 
-            <PayPalScriptProvider options={initialOptions}>
-              <PayPalButtons
-                createOrder={createOrder}
-                onApprove={onApprove}
-                onError={onError}
-              />
-            </PayPalScriptProvider>
+           <PayPalScriptProvider options={initialOptions}>
+  {!isFormValid() && (
+    <p style={{ color: "red", marginTop: "1rem" }}>
+      Upewnij się, że wszystkie pole są wypełnione poprawnie.
+    </p>
+  )}
+  <PayPalButtons
+    createOrder={createOrder}
+    onApprove={onApprove}
+    onError={onError}
+    disabled={!isFormValid()}
+  />
+</PayPalScriptProvider>
+
+
 
           <Link to="/ProductPage">
             <button className="continue">Kontynuuj zakupy</button>

@@ -203,3 +203,29 @@ button {
   color: #666;
   margin-bottom: 20px;
 }
+.checkout-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+  
+}
+
+.checkout-form input {
+  padding: 10px;
+  font-size: 16px;
+    border: 1px solid #dee2e6;
+  border-radius: 8px;
+}
+.checkout-form .full-width {
+  width: 100%;
+}
+
+.checkout-form .two-small {
+  display: flex;
+  gap: 10px;
+}
+
+.checkout-form .two-small input {
+  flex: 1;
+}

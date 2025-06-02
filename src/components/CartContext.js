@@ -35,6 +35,10 @@ export function CartProvider({ children }) {
   const getTotalPrice = () => {
     return cartItems.reduce((total, item) => total + item.price * item.quantity, 0)
   }
+//Czyści koszyk
+  const clearCart = () =>{
+setCartItems([]);
+  }
   // Udostępnienie funkcji i stanu wszystkim komponentom korzystającym z tego kontekstu
   return (
     <CartContext.Provider
@@ -45,6 +49,7 @@ export function CartProvider({ children }) {
         increaseQuantity,
         decreaseQuantity,
         getTotalPrice,
+        clearCart,
       }}
     >
       {children}
