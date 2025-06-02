@@ -146,13 +146,14 @@ function ProductPage() {
             <div className="product-card" key={product.id}>
               <Link to={`/SingleProductPage/${product.id}`}>
                 <div className="product-image">
-                  <img src={fishpic} alt={product.Name} />
+                  <img src={product.imageURL} alt={product.Name} />
                 </div>
 
                 <div className="product-info">
                   <h2>{product.Brand}</h2>
                   <p className="product-name">{product.Name}</p>
                   <div className="product-price">{product.price.toFixed(2)} zł</div>
+                  <p className="product-amount">Ilość sztuk: {product.amount}</p>
                 </div>
               </Link>
 

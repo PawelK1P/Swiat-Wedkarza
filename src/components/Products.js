@@ -28,6 +28,7 @@ function Products() {
     Name: '',
     amount: '',
     price: '',
+    imageURL: ''
   });
 
   // ID edytowanego produktu i jego dane
@@ -79,10 +80,10 @@ function Products() {
 
    // Dodawanie nowego produktu
   const handleAddProduct = async () => {
-    const { Brand, Category, Name, amount, price } = newProduct;
+    const { Brand, Category, Name, amount, price, imageURL} = newProduct;
     // Walidacja pól nowego produktu
-    if (!Brand || !Category || !Name || !price || !amount) {
-      alert('Wypełnij wszystkie wymagane pola (Brand, Category, Name, Price, Amount)');
+    if (!Brand || !Category || !Name || !price || !amount || !imageURL) {
+      alert('Wypełnij wszystkie wymagane pola (Brand, Category, Name, Price, Amount, imageURL)');
       return;
     }
         // Dodanie nowego produktu do Firestore
@@ -92,10 +93,11 @@ function Products() {
       Name,
       amount,
       price: parseFloat(price),
+      imageURL
     });
     alert('Produkt został dodany.');
      // Reset formularza i odświeżanie listy
-    setNewProduct({ Brand: '', Category: '', Name: '', amount: '', price: '' });
+    setNewProduct({ Brand: '', Category: '', Name: '', amount: '', price: '', imageURL: ''});
     fetchProducts();
   };
 
@@ -160,6 +162,12 @@ function Products() {
         value={newProduct.price}
         onChange={e => setNewProduct({ ...newProduct, price: e.target.value })}
       />
+      <input
+        type="text"
+        placeholder="imageURL"
+        value={newProduct.imageURL}
+        onChange={e => setNewProduct({ ...newProduct, imageURL: e.target.value })}
+      />
       <button onClick={handleAddProduct} className='prod'>Dodaj produkt</button>
 
       <hr />
@@ -173,6 +181,7 @@ function Products() {
             <th>Name</th>
             <th>Amount</th>
             <th>Price</th>
+            <th>imageURL</th>
             <th>Management</th>
           </tr>
         </thead>
@@ -228,6 +237,14 @@ function Products() {
                     />
                   </td>
                   <td>
+                    <input
+                      value={editedProductData.imageURL}
+                      onChange={e =>
+                        setEditedProductData({ ...editedProductData, imageURL: e.target.value })
+                      }
+                    />
+                  </td>
+                  <td>
                     <button onClick={saveChanges} className='prod'>Zapisz</button>
                     <button onClick={cancelEditing} className='prod'>Anuluj</button>
                   </td>
@@ -239,6 +256,7 @@ function Products() {
                   <td>{p.Name}</td>
                   <td>{p.amount}</td>
                   <td>{p.price}</td>
+                  <td>{p.imageURL}</td>
                   <td>
                     <button onClick={() => startEditing(p)} className="prod">Edytuj</button>
                     <button onClick={() => handleDelete(p.id)} className="prod">Usuń</button>

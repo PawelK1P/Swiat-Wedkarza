@@ -116,6 +116,12 @@
     color: #2a6f97;
     margin-bottom: 10px;
   }
+
+  .product-amount {
+    font-size: 16px;
+    font-weight: bold;
+    color: #2d365c;
+  }
   
   .product-name {
     color: #000000;

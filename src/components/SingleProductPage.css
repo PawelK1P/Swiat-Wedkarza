@@ -66,7 +66,13 @@
   font-size: 1.8rem;
   font-weight: 700;
   color: #e63946; /* ładny czerwony */
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+}
+
+.ProductAmount {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 12px;
 }
 
 .AddToCart {
