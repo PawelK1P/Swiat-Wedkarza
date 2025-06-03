@@ -112,13 +112,13 @@ function SingleProductPage() {
             </div>
 
             <div className="ProductInfo">
-                <span className="ProductName">Name: {product.Name}</span>
-                <span className="ProductBrand">Brand: {product.Brand}</span>
-                <span className="ProductPrice">Price: {product.price.toFixed(2)} zł</span>
-                <span className="ProductAmount">Amount: {product.amount}</span>
+                <span className="ProductName">{product.Name}</span>
+                <span className="ProductBrand">Marka: {product.Brand}</span>
+                <span className="ProductPrice">Cena: {product.price.toFixed(2)} zł</span>
+                <span className="ProductAmount">Ilość: {product.amount}</span>
                 <button className="AddToCart" onClick={() => addToCart(product)}>Dodaj do koszyka</button>
                 <main className="Reviews-container">
-                    <span className="ProductReviews">Reviews:</span>
+                    <span className="ProductReviews">Recenzje:</span>
                     {reviews.length === 0 ? (
                         <div>Produkt nie ma jeszcze recenzji.</div>
                     ) : (
