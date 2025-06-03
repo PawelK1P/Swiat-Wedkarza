@@ -103,3 +103,78 @@
   min-height: 200px;
 }
 
+.ProductReviews {
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.Review {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    padding: 20px;
+}
+
+.ReviewStars img {
+    width: 30px;
+    height: 30px;
+}
+
+.ReviewText {
+    font-weight: 500;
+    padding: 10px 0px;
+}
+
+.ReviewDelete {
+    color: white;
+    background-color: #cc0000;
+    padding: 12px 12px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+    border: 1px solid ;
+}
+
+.ReviewDelete:hover {
+    background-color: #500c0c;
+}
+
+.AddReviewSection {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.ReviewTextarea {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    resize: vertical;
+}
+
+.ReviewStarSelect {
+    width: 100px;
+    padding: 6px;
+    font-size: 1rem;
+    border-radius: 6px;
+}
+
+.SubmitReviewButton {
+    background-color: #457b9d;
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.SubmitReviewButton:hover {
+    background-color: #1d3557;
+}

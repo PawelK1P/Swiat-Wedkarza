@@ -1,9 +1,40 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import icon from '../assets/ikona.png';
 import { Link, useNavigate } from 'react-router-dom'; // import komponentu Link i useNavigate (służy do obsługi routingu, dzięki któremu można się przenosić między stronami)
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { app } from '../firebase';
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  query,
+  where,
+} from 'firebase/firestore';
+
 function Navbar() {
   const [searchName, setSearchName] = useState("");
   const navigate = useNavigate();
+  const db = getFirestore(app);
+  const auth = getAuth();
+  const [isEmployee, setIsEmployee] = useState(false);
+
+  // sprawdzenie, czy użytkownik jest pracownikiem
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        return;
+      }
+
+      // Sprawdzenie, czy użytkownik istnieje w kolekcji Employees i czy ma dostęp do katalogu
+      const q = query(collection(db, 'Employees'), where('email', '==', user.email));
+      const snapshot = await getDocs(q);
+      if (!snapshot.empty) {
+        setIsEmployee(true);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [auth, db]);
 
   const handleEnter = () => {
     navigate(`/ProductPage?searchedItem=${encodeURIComponent(searchName)}`);
@@ -42,7 +73,9 @@ function Navbar() {
 
       {/*Nawigacja podstron*/}
       <nav className="user-nav">
+          {isEmployee && (  
           <Link to="/Products">Zarządzanie katalogiem</Link>
+          )}
           <Link to="/ProductPage">Lista produktów</Link>
           <Link to="/ShoppingCart">
             Koszyk
