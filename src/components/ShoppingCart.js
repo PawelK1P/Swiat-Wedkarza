@@ -169,7 +169,7 @@ const isFormValid = () => {
 
            <PayPalScriptProvider options={initialOptions}>
   {!isFormValid() && (
-    <p style={{ color: "red", marginTop: "1rem" }}>
+    <p style={{ color: "red"}}>
       Upewnij się, że wszystkie pole są wypełnione poprawnie.
     </p>
   )}
