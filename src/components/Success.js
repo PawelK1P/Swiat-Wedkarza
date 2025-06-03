@@ -18,7 +18,6 @@ function Success(){
       <ul>
         {purchasedItems.map((item) => (
           <li key={item.id}>
-            <img src={item.imageURL} alt={item.Name} />
               {item.Name} - {item.price.toFixed(2)} zł ({item.quantity} sztuk)
           </li>
         ))}
