@@ -38,7 +38,7 @@ function SingleProductPage() {
             const docSnap = await getDoc(docRef);
 
             if (docSnap.exists()) {
-            setProduct(docSnap.data());
+           setProduct({ id: docSnap.id, ...docSnap.data() });
             } else {
             alert("Produkt nie istnieje");
             navigate('/'); // przekierowanie np. do strony głównej

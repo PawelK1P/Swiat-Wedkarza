@@ -83,15 +83,17 @@ const isFormValid = () => {
         <div className="items">
           {cartItems.map((item) => (
             <div className="item" key={item.id}>
+              <Link to={`/SingleProductPage/${item.id}`}>
               <div className="image">
                 <img src={item.imageURL} alt={item.Name} />
               </div>
-
+              
               <div className="details">
                 <h3>{item.Brand}</h3>
                 <p className="name">{item.Name}</p>
                 <p className="price">{item.price.toFixed(2)} zł</p>
               </div>
+              </Link>
 
               <div className="actions">
                 <div className="quantity">
