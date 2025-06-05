@@ -8,10 +8,10 @@ import { useCart } from "./CartContext";
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 function SingleProductPage() {
-    const { id } = useParams();
+    const { id } = useParams(); // pobranie ID produktu z URL
     const navigate = useNavigate();
     const [product, setProduct] = useState(null);
-    const {addToCart} = useCart();
+    const {addToCart} = useCart(); // funkcja do dodawania do koszyka
     const auth = getAuth();
     const [currentClientID, setCurrentClientID] = useState();
     const [isEmployee, setIsEmployee] = useState(false);
@@ -20,7 +20,7 @@ function SingleProductPage() {
     const [newReviewStars, setNewReviewStars] = useState(5);
     const hasUserReviewed = reviews.some(review => review.clientID === currentClientID);
 
-    //pobieranie wszystkich recenzji produktu
+    // Pobieranie recenzji dla danego produktu z bazy danych
     const fetchReviews = async () => {
         const q = query(collection(db, 'Reviews'), where("productID", "==", id));
         const querySnapshot = await getDocs(q);
@@ -30,7 +30,7 @@ function SingleProductPage() {
         }));
         setReviews(reviewsList);
     };
-
+    // Pobieranie danych produktu po załadowaniu strony lub zmianie ID
     useEffect(() => {
         async function fetchProduct() {
         try {
@@ -48,7 +48,7 @@ function SingleProductPage() {
         }
         }
         fetchProduct();
-        fetchReviews();
+        fetchReviews();  // pobieranie recenzji
     }, [id, navigate]);
 
     //sprawdzanie możliwości usuwania recenzji swojej jako klient lub wszystkich jako pracownik

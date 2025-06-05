@@ -7,14 +7,16 @@ import { useState } from "react";
 
 function ShoppingCart() {
   const navigate = useNavigate();
+    // Hook z kontekstu koszyka – zawiera dane i funkcje do zarządzania koszykiem
 const { cartItems, removeFromCart, increaseQuantity, decreaseQuantity, getTotalPrice, clearCart } = useCart()
+  // Lokalny stan dla formularza danych do wysyłki
 const [formData, setFormData] = useState({
   address: "",
   phone: "",
   postalCode: "",
   email: "",
 });
-
+  // Funkcja walidująca poprawność danych z formularza
 const isFormValid = () => {
   const { address, phone, postalCode, email } = formData;
   const phoneRegex = /^[0-9]{9}$/;
@@ -28,7 +30,7 @@ const isFormValid = () => {
     emailRegex.test(email)
   );
 };
-
+  // Jeśli koszyk jest pusty – pokaż komunikat i przycisk powrotu do sklepu
   if (cartItems.length === 0) {
     return (
       <div className="empty">
@@ -40,13 +42,13 @@ const isFormValid = () => {
       </div>
     );
   }
-
+  // Konfiguracja PayPal (Client ID i inne opcje)
   const initialOptions = {
     "client-id": "ARZYS2NGS064vZSmJEIXKqqCGOArRxajPsY4kKV2M9OGGpZyW4_e1o2uolG0MO9TCRdZZrMb-CVJHSv5", 
     currency: "PLN", 
     intent: "capture",
   };
-
+  // Tworzenie zamówienia w PayPal
   const createOrder = (data, actions) => {
     return actions.order.create({
       purchase_units: [
@@ -60,14 +62,14 @@ const isFormValid = () => {
     });
   };
 
-
+  // Po pomyślnym zatwierdzeniu płatności – przejdź do strony sukcesu i wyczyść koszyk
   const onApprove = (data, actions) => {
     return actions.order.capture().then((details) => {
         navigate("/Success", { state: { purchasedItems: cartItems}})    
         clearCart()
     });
   };
-
+  // Obsługa błędu PayPal
   const onError = (err) => {
     console.error("PayPal error", err);
     alert("Wystąpił błąd podczas przetwarzania płatności. Spróbuj ponownie.");

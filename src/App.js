@@ -18,24 +18,25 @@ import  Products  from './components/Products';
 import  SingleProductPage  from './components/SingleProductPage';
 
 function App() {
+    // Stan przechowujący aktualnie zalogowanego użytkownika
   const [user, setUser ] = useState(null);
 
   useEffect(() => {
+        // Inicjalizacja Firebase Auth i nasłuchiwanie zmian w stanie logowania użytkownika
     const auth = getAuth(app);
     const unsubscribe = onAuthStateChanged(auth, (currentUser ) => {
       setUser (currentUser );
     });
-
+        // Czyszczenie nasłuchiwania
     return () => unsubscribe();
   }, []);
 
   const location = useLocation();
 
   return (
-    <CartProvider>
+    <CartProvider> {/* Kontekst koszyka dostępny dla całej aplikacji */}
     <div className="app">
-      {/* Render Navbar only if not on specific routes */}
-      {location.pathname !== "/Login" && location.pathname !== "/Account" && <Navbar />}
+      <Navbar />
       <main>
         <Routes>
           <Route path="/Account" element={<Account user={user} />} />
@@ -52,7 +53,7 @@ function App() {
         {location.pathname !== "/Registration" && !location.pathname.startsWith("/SingleProductPage") && location.pathname !== "/Products" && location.pathname !== "/Success" && location.pathname !== "/registration" && location.pathname !== "/ProductPage" && location.pathname !== "/ShoppingCart" && location.pathname !== "/Login" && location.pathname !== "/Account" && <Categories />}
       </main>
       {/* Render Footer only if not on specific routes */}
-      {location.pathname !== "/ProductPage" && location.pathname !== "/Products" && location.pathname !== "/Success" &&  location.pathname !== "/ShoppingCart" && location.pathname !== "/Login" && location.pathname !== "/Account" && <Footer />}
+      {location.pathname !== "/ProductPage" && location.pathname !== "/Products" && location.pathname !== "/Success" &&  location.pathname !== "/ShoppingCart" && location.pathname !== "/Account" && <Footer />}
     </div>
 </CartProvider>
   );

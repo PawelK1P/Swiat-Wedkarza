@@ -34,6 +34,7 @@ function Registration() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    // tworzenie konta i dodanie do kolekcji
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
 

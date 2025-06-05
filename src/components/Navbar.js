@@ -33,13 +33,15 @@ function Navbar() {
       }
     });
 
-    return () => unsubscribe();
+    return () => unsubscribe(); //czyszczenie
   }, [auth, db]);
 
+    // Obsługa kliknięcia w "Szukaj"
   const handleEnter = () => {
     navigate(`/ProductPage?searchedItem=${encodeURIComponent(searchName)}`);
   };
 
+  // Obsługa naciśnięcia klawisza Enter w polu wyszukiwania
   const handleKeyDown = (e) => {
     if (e.key === 'Enter')
       handleEnter();

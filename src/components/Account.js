@@ -7,13 +7,14 @@ import { useNavigate } from "react-router-dom";
 import { getFirestore, collection, query, where, getDocs, doc, deleteDoc } from "firebase/firestore";
 
 function Account() {
+  // stany
   const [currentUser, setCurrentUser] = useState(null);
-  const [role, setRole] = useState(""); // rola z Firestore
+  const [role, setRole] = useState("");
   const [newPassword, setNewPassword] = useState('');
   const navigate = useNavigate();
   const auth = getAuth();
   const db = getFirestore(app);
-
+    // Efekt nasłuchujący zmian stanu logowania i pobierający dane użytkownika z Firestore
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setCurrentUser(user);
@@ -36,9 +37,10 @@ function Account() {
       }
     });
 
-    return () => unsubscribe();
+    return () => unsubscribe(); // Czyszczenie nasłuchiwania
   }, [auth, db, navigate]);
 
+    // Funkcja usuwająca konto użytkownika
   const handleDeleteAccount = async () => {
     if (!currentUser) {
       return alert("Nie jesteś zalogowany");
@@ -61,7 +63,7 @@ function Account() {
         }
       }
 
-      // Usuwanie konta Firebase Auth
+      // Usuwanie konta z Firebase Auth
       await deleteUser(user);
 
       alert("Konto i dane zostały usunięte");
@@ -71,6 +73,7 @@ function Account() {
     }
   };
 
+    // Funkcja do zmiany hasła użytkownika
   const handleChangePassword = async () => {
     if (!currentUser) return alert("Nie jesteś zalogowany");
     try {

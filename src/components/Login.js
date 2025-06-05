@@ -14,10 +14,11 @@ function Login() {
   });
 // autoryzacja domeny
   const auth = getAuth(app);
-  const navigate = useNavigate(); // służy do nawigacji po zalogowaniu
+  const navigate = useNavigate();
     // Obsługa zmiany wartości w formularzu:
     const handleChange = (e) => { 
       const { name, value } = e.target; 
+      // Zapisanie komunikatu błędu do stanu
       setFormData(prevState => ({
         ...prevState,
         [name]: value,
@@ -27,7 +28,7 @@ function Login() {
       // Obsługa wysyłania formularza: 
       const handleSubmit = async (event) => {
         event.preventDefault();
-    
+      // logowanie użytkownika
         try {
           await signInWithEmailAndPassword(auth, formData.email, formData.password);
           alert("Zalogowano pomyślnie!");
