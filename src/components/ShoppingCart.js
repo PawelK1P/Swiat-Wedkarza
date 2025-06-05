@@ -135,7 +135,7 @@ const isFormValid = () => {
     <input
       type="text"
       name="postalCode"
-      placeholder="Kod pocztowy (np. 00-000)"
+      placeholder="Kod pocztowy (00-000)"
       required
       value={formData.postalCode}
       onChange={(e) => setFormData({ ...formData, postalCode: e.target.value })}
