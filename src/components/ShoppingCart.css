@@ -229,3 +229,8 @@ button {
 .checkout-form .two-small input {
   flex: 1;
 }
+.link-container {
+  display: flex;
+  gap: 1rem; 
+  align-items: center; 
+}
