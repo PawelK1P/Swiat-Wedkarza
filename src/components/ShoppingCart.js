@@ -44,7 +44,7 @@ const isFormValid = () => {
   }
   // Konfiguracja PayPal (Client ID i inne opcje)
   const initialOptions = {
-    "client-id": "ARZYS2NGS064vZSmJEIXKqqCGOArRxajPsY4kKV2M9OGGpZyW4_e1o2uolG0MO9TCRdZZrMb-CVJHSv5", 
+    "client-id": "", 
     currency: "PLN", 
     intent: "capture",
   };
